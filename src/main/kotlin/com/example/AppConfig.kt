@@ -12,7 +12,7 @@ class AppConfig : WebServerFactoryCustomizer<ConfigurableServletWebServerFactory
     fun properties() = Properties()
 
     @Bean
-    fun counterService(props: Properties) = CounterService(props)
+    fun counterService(props: Properties) = CounterService(props.exampleInitial)
 
     override fun customize(factory: ConfigurableServletWebServerFactory) {
         factory.setPort(properties().serverPort)

@@ -19,13 +19,13 @@ class Application: AutoCloseable {
     private val config: AppConfig = AppConfig()
     private var appContext: ConfigurableApplicationContext? = null
     private val app = SpringApplication(Application::class.java).apply {
-        setDefaultProperties(mapOf("server.port" to config.properties().serverPort))
+        setDefaultProperties(mapOf("server.port" to config.props.serverPort))
     }
 
     @Bean
     fun router(): RouterFunction<ServerResponse> {
         return router {
-            config.greetingController().routes(this)
+            config.greetingController.routes(this)
         }
     }
 

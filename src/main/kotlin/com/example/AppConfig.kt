@@ -1,9 +1,7 @@
 package com.example
 
 class AppConfig {
-    fun properties() = Properties()
-
-    fun counterService(props: Properties) = CounterService(props.exampleInitial)
-
-    fun greetingController() = GreetingController(counterService(properties()))
+    val props = Properties()
+    val counterService = CounterService(props.exampleInitial)
+    val greetingController = GreetingController(counterService)
 }

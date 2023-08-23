@@ -16,13 +16,14 @@ fun main(args: Array<String>) {
 @Configuration
 @SpringBootApplication
 class Application: AutoCloseable {
+    private val config: AppConfig = AppConfig()
     private var appContext: ConfigurableApplicationContext? = null
     private val app = SpringApplication(Application::class.java)
 
     @Bean
-    fun router(greeting: GreetingController): RouterFunction<ServerResponse> {
+    fun router(): RouterFunction<ServerResponse> {
         return router {
-            greeting.routes(this)
+            config.greetingController().routes(this)
         }
     }
 

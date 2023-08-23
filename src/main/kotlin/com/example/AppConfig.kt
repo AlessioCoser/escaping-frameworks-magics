@@ -1,12 +1,10 @@
 package com.example
 
-import org.springframework.boot.web.server.WebServerFactoryCustomizer
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class AppConfig : WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
+class AppConfig {
 
     @Bean
     fun properties() = Properties()
@@ -15,8 +13,4 @@ class AppConfig : WebServerFactoryCustomizer<ConfigurableServletWebServerFactory
     fun counterService(props: Properties) = CounterService(props.exampleInitial)
 
     fun greetingController() = GreetingController(counterService(properties()))
-
-    override fun customize(factory: ConfigurableServletWebServerFactory) {
-        factory.setPort(properties().serverPort)
-    }
 }

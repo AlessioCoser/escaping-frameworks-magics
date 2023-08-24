@@ -11,15 +11,15 @@ fun main(args: Array<String>) {
 }
 
 @SpringBootApplication
-class Application(private val props: Properties = Properties()): AutoCloseable {
-    private val config: AppConfig = AppConfig(props)
+class Application(private val config: Config = Config()): AutoCloseable {
+    private val dependencies = AppDependencies(config)
     private var appContext: ConfigurableApplicationContext? = null
     private val app = SpringApplication(Application::class.java).apply {
-        setDefaultProperties(mapOf("server.port" to props.serverPort))
+        setDefaultProperties(mapOf("server.port" to config.serverPort))
         addInitializers(beans {
             bean {
                 router {
-                    config.greetingController.routes(this)
+                    dependencies.greetingController.routes(this)
                 }
             }
         })

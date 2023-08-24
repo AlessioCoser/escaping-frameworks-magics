@@ -25,7 +25,7 @@ class GreetingControllerTests {
     private fun runApp(test: (client: Http) -> Unit) {
         val port = Random.nextInt(35000, 65000)
         val client = Http("http://localhost:${port}")
-        Application(Properties(serverPort = port))
+        Application(Config(serverPort = port))
             .start(emptyArray())
             .use { test(client) }
     }

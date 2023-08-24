@@ -1,6 +1,6 @@
 package com.example
 
-class AppConfig(props: Properties) {
+class AppDependencies(props: Config) {
     val counterService = CounterService(props.exampleInitial)
     val greetingController = GreetingController(counterService)
 }

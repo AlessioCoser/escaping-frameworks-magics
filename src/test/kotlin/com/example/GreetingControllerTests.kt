@@ -4,6 +4,7 @@ import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import topinambur.Http
+import kotlin.random.Random
 
 class GreetingControllerTests {
 
@@ -22,7 +23,7 @@ class GreetingControllerTests {
     }
 
     private fun runApp(test: (client: Http) -> Unit) {
-        val port = 8000
+        val port = Random.nextInt(35000, 65000)
         val client = Http("http://localhost:${port}")
         Application(Properties(serverPort = port))
             .start(emptyArray())

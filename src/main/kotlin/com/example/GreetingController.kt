@@ -1,18 +1,16 @@
 package com.example
 
-import org.springframework.web.servlet.function.RouterFunctionDsl
-import org.springframework.web.servlet.function.ServerRequest
-import org.springframework.web.servlet.function.ServerResponse
-import org.springframework.web.servlet.function.ServerResponse.ok
+import io.javalin.apibuilder.ApiBuilder.get
+import io.javalin.http.Context
 
 class GreetingController(private val counterService: CounterService) {
 
-    fun routes(router: RouterFunctionDsl) {
-        router.GET("/greeting", ::greeting)
+    fun routes() {
+        get("/greeting", ::greeting)
     }
 
-    private fun greeting(request: ServerRequest): ServerResponse {
-        val name = request.param("name").orElse("World")
-        return ok().body(Greeting(counterService.incrementAndGet(), "Hello, ${name}!"))
+    private fun greeting(ctx: Context) {
+        val name = ctx.queryParam("name") ?: "World"
+        ctx.json(Greeting(counterService.incrementAndGet(), "Hello, ${name}!"))
     }
 }

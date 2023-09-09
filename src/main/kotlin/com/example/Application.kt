@@ -16,9 +16,9 @@ fun main(args: Array<String>) {
 @SpringBootApplication
 class Application {
     @Bean
-    fun router(greetingController: GreetingController): RouterFunction<ServerResponse> {
+    fun router(greeting: GreetingController): RouterFunction<ServerResponse> {
         return router {
-            GET("/greeting") { greetingController.greeting(it) }
+            greeting.routes(this)
         }
     }
 }

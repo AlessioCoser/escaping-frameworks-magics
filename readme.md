@@ -2,4 +2,4 @@
 
 This repo is used as an example to support my series of articles (here: www.alessiocoser.com)
 - [1. Configuration](http://www.alessiocoser.com/escaping-the-magic-of-the-frameworks-1-configuration/) 
-- [2. ??](#)
+- [2. HTTP Routing](http://www.alessiocoser.com/escaping-the-magic-of-the-frameworks-2-http-routing/)

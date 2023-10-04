@@ -1,13 +1,13 @@
 package com.example
 
+import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -17,18 +17,17 @@ class GreetingControllerTests {
 
     @Test
     fun noParamGreetingShouldReturnDefaultMessage() {
-        mockMvc!!.perform(MockMvcRequestBuilders
-            .get("/greeting"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.content").value("Hello, World!"))
+        val response = mockMvc!!.perform(get("/greeting")).andReturn().response
+        assertThat(response.status).isEqualTo(200)
+        assertThatJson(response.contentAsString).inPath("$.content").isEqualTo("Hello, World!")
     }
 
     @Test
     fun paramGreetingShouldReturnTailoredMessage() {
-        mockMvc!!.perform(MockMvcRequestBuilders
-            .get("/greeting")
-            .param("name", "Spring Community"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.content").value("Hello, Spring Community!"))
+        val response = mockMvc!!.perform(
+            get("/greeting").param("name", "Spring Community")
+        ).andReturn().response
+        assertThat(response.status).isEqualTo(200)
+        assertThatJson(response.contentAsString).inPath("$.content").isEqualTo("Hello, Spring Community!")
     }
 }

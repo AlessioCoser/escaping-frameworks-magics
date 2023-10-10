@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
 
 @Configuration
 @SpringBootApplication
-class Application {
+class Application: AutoCloseable {
     private var appContext: ConfigurableApplicationContext? = null
     private val app = SpringApplication(Application::class.java)
 
@@ -26,11 +26,12 @@ class Application {
         }
     }
 
-    fun start(args: Array<String>) {
+    fun start(args: Array<String>): Application {
         appContext = app.run(*args)
+        return this
     }
 
-    fun stop() {
+    override fun close() {
         appContext?.close()
     }
 }

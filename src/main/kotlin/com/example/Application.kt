@@ -16,10 +16,11 @@ fun main(args: Array<String>) {
 @Configuration
 @SpringBootApplication
 class Application: AutoCloseable {
-    private val config: AppConfig = AppConfig()
+    private val props: Properties = Properties()
+    private val config: AppConfig = AppConfig(props)
     private var appContext: ConfigurableApplicationContext? = null
     private val app = SpringApplication(Application::class.java).apply {
-        setDefaultProperties(mapOf("server.port" to config.props.serverPort))
+        setDefaultProperties(mapOf("server.port" to props.serverPort))
     }
 
     @Bean

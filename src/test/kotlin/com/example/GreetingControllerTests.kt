@@ -22,8 +22,9 @@ class GreetingControllerTests {
     }
 
     private fun runApp(test: (client: Http) -> Unit) {
-        val client = Http("http://localhost:8080")
-        Application()
+        val port = 8000
+        val client = Http("http://localhost:${port}")
+        Application(Properties(serverPort = port))
             .start(emptyArray())
             .use { test(client) }
     }

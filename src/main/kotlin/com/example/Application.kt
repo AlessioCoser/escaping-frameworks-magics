@@ -11,8 +11,7 @@ fun main(args: Array<String>) {
 }
 
 @SpringBootApplication
-class Application: AutoCloseable {
-    private val props: Properties = Properties()
+class Application(private val props: Properties = Properties()): AutoCloseable {
     private val config: AppConfig = AppConfig(props)
     private var appContext: ConfigurableApplicationContext? = null
     private val app = SpringApplication(Application::class.java).apply {

@@ -5,4 +5,4 @@ This repo is used as an example to support my series of articles (here: www.ales
 - [2. HTTP Routing](https://www.alessiocoser.com/escaping-the-magic-of-the-frameworks-2-http-routing/)
 - [3. Tests](https://www.alessiocoser.com/escaping-the-magic-of-the-frameworks-3-tests/)
 - [4. Dependencies](https://www.alessiocoser.com/escaping-the-magic-of-the-frameworks-4-dependencies)
-- [5. coming soon...](#)
+- [5. The framework](https://www.alessiocoser.com/escaping-the-magic-of-the-frameworks-5-the-framework)

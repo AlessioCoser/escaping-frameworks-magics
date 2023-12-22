@@ -4,7 +4,6 @@ import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import topinambur.Http
-import kotlin.random.Random
 
 class GreetingControllerTests {
 
@@ -22,11 +21,10 @@ class GreetingControllerTests {
         assertThatJson(response.body).inPath("$.content").isEqualTo("Hello, Spring Community!")
     }
 
-    private fun runApp(test: (client: Http) -> Unit) {
-        val port = Random.nextInt(35000, 65000)
-        val client = Http("http://localhost:${port}")
-        Application(Config(serverPort = port))
-            .start(emptyArray())
-            .use { test(client) }
+    private fun runApp(test: (basePath: Http) -> Unit) {
+        val randomPortConfig = Config(serverPort = 0)
+        Application(randomPortConfig)
+            .start()
+            .use { test(Http("http://localhost:${it.port}")) }
     }
 }

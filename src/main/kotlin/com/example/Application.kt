@@ -2,17 +2,19 @@ package com.example
 
 import io.javalin.Javalin
 
-fun main(args: Array<String>) {
-    Application().start(args)
+fun main() {
+    Application().start()
 }
 
-class Application(private val config: Config = Config()): AutoCloseable {
+class Application(private val config: Config = Config()) : AutoCloseable {
     private val dependencies = AppDependencies(config)
     private val app = Javalin.create().routes {
         dependencies.greetingController.routes()
     }
 
-    fun start(args: Array<String>): Application {
+    val port: Int get() = app.port()
+
+    fun start(): Application {
         app.start(config.serverPort)
         return this
     }
